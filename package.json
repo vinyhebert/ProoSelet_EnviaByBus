@@ -1,0 +1,11 @@
+{
+  "name": "enviabybus",
+  "version": "1.0.0",
+  "description": "Desafio processo seletivo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
