@@ -2,6 +2,12 @@ import * as insertTrans from '../models/insertTrans'
 import * as validateCPF from '../models/validateCPF'
 import * as validateDate from '../models/validateDate'
 
+import { Request, Response } from 'express';
+import { Transacao } from '../interfaces/transaction'
+import * as selectTrans from '../models/selectTrans';
+import * as selectTransError from '../models/selectTransError';
+import * as storeBalance from '../models/storeBalance';
+
 
 //melhorar
 const validateDate1 = validateDate
@@ -58,4 +64,37 @@ interface LineData {
     return data;
   };
 
+  export const getTrans = async (req: Request, res: Response) => {
+    try {
+      const dataTrans: Transacao[] = await selectTrans.consultarTransValidasNoMySQL();
+      const saldoTransPorEmpresa  = storeBalance.totalizarValoresPorLoja(dataTrans);
+  
+      if (!dataTrans || dataTrans.length === 0) {
+        return res.status(404).json({ error: 'Nenhuma transação encontrada' });
+      }
+  
+      return saldoTransPorEmpresa;
+    } catch (error) {
+      console.error(`Erro no controllerTrans.getTrans`, error);
+      return res.status(500).json({ error: 'Erro ao obter transações' });
+    }
+  };
 
+  export const getTransError = async (req: Request, res: Response) => {
+    try {
+      const dataTransError = await selectTransError.consultarTransInvalidasNoMySQL();
+  
+      if (Array.isArray(dataTransError)) {
+        if (dataTransError.length === 0) {
+          return res.status(404).json({ error: 'Nenhuma transação encontrada' });
+        }
+  
+        return dataTransError;
+      } else {
+        return res.status(500).json({ error: 'Erro ao obter transações com falha' });
+      }
+    } catch (error) {
+      console.error(`Erro no controllerTrans.getTransError`, error);
+      return res.status(500).json({ error: 'Erro ao obter transações com falha' });
+    }
+};

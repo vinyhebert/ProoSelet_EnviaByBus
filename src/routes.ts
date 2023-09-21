@@ -26,4 +26,15 @@ router.post('/upload', upload.single('file'), (req: Request, res: Response) => {
       }
 })
 
+// Transações + Saldo da loja
+router.post('/transByCompany', async (req: Request, res: Response) => {
+    try {
+      const transacoes = await transactionController.getTrans(req, res);
+      res.json(transacoes);
+    } catch (error) {
+      console.error('Erro ao obter as transações:', error);
+      res.status(500).json({ error: 'Erro ao obter as transações' });
+    }
+  });
+
 export default router;
