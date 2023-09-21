@@ -15,7 +15,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - D:\Pessoal\Processo Seletivo\EnviaByBus\dbcache:/var/lib/mysql
+      - D:\Pessoal\Processo Seletivo\_EnviaByBus\dbcache:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpwd
       MYSQL_DATABASE: enviaByBus
@@ -32,7 +32,7 @@ services:
     ports:
       - "8080:3000"
     volumes:
-      - D:\Pessoal\Processo Seletivo\EnviaByBus:/home/node/app
+      - D:\Pessoal\Processo Seletivo\_EnviaByBus:/home/node/app
     working_dir: /home/node/app
     command: "npm start"
     depends_on: 
