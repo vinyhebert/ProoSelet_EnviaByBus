@@ -10,7 +10,7 @@ const consultarTransInvalidasNoMySQL = () => {
                 console.error('Erro ao obter conexão do pool:', err);
                 return reject(err);
             }
-            const sql = 'SELECT * FROM transactionsError';
+            const sql = 'SELECT * FROM transactionErrors';
             connection.query(sql, (err, results) => {
                 // Libera a conexão de volta para o pool
                 connection.release();

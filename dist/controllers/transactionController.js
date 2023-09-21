@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTransError = exports.getTrans = exports.organizeData = void 0;
 const insertTrans = require("../models/insertTrans");
+const insertTransErros = require("../models/insertTransErrors");
 const validateCPF = require("../models/validateCPF");
 const validateDate = require("../models/validateDate");
 const selectTrans = require("../models/selectTrans");
@@ -51,6 +52,7 @@ const organizeData = (lines, getField) => {
     });
     console.log('dataError', dataError);
     insertTrans.inserirDadosValidosNoMySQL(data);
+    insertTransErros.inserirDadosInvalidosNoMySQL(dataError);
     return data;
 };
 exports.organizeData = organizeData;

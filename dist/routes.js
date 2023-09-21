@@ -43,5 +43,16 @@ router.post('/transByCompany', (req, res) => __awaiter(void 0, void 0, void 0, f
         res.status(500).json({ error: 'Erro ao obter as transações' });
     }
 }));
+// Transações que deram errado
+router.post('/transWithError', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const transacoesComFalha = yield transactionController.getTransError(req, res);
+        res.json({ transacoesComFalha });
+    }
+    catch (error) {
+        console.error('Erro ao obter as transações com falha:', error);
+        res.status(500).json({ error: 'Erro ao obter as transações com falha' });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=routes.js.map

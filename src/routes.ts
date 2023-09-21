@@ -36,5 +36,16 @@ router.post('/transByCompany', async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Erro ao obter as transações' });
     }
   });
-
+  
+  // Transações que deram errado
+router.post('/transWithError', async (req: Request, res: Response) => {
+    try {
+      const transacoesComFalha = await transactionController.getTransError(req, res);
+      res.json({transacoesComFalha});
+    } catch (error) {
+      console.error('Erro ao obter as transações com falha:', error);
+      res.status(500).json({ error: 'Erro ao obter as transações com falha' });
+    }
+  });
+  
 export default router;

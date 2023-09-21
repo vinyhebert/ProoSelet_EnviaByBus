@@ -1,4 +1,5 @@
 import * as insertTrans from '../models/insertTrans'
+import * as insertTransErros from '../models/insertTransErrors'
 import * as validateCPF from '../models/validateCPF'
 import * as validateDate from '../models/validateDate'
 
@@ -60,6 +61,7 @@ interface LineData {
     console.log('dataError', dataError);
 
     insertTrans.inserirDadosValidosNoMySQL(data);
+    insertTransErros.inserirDadosInvalidosNoMySQL(dataError);
   
     return data;
   };
