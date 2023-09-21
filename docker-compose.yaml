@@ -1,0 +1,53 @@
+version: "3.8"
+
+networks:
+  enviabybus_net: 
+    driver: bridge
+
+services: 
+  db:
+    image: mysql
+    networks:
+      - enviabybus_net
+    
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "always"
+    ports:
+      - "3306:3306"
+    volumes:
+      - D:\Pessoal\Processo Seletivo\EnviaByBus\dbcache:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_DATABASE: enviaByBus
+      MYSQL_USER: enviaByBus
+      MYSQL_PASSWORD: enviaByBuspwd
+
+    
+  api:
+    image: "node:18"
+    networks:
+      - enviabybus_net
+    container_name: "node"
+    restart: "always"
+    ports:
+      - "8080:3000"
+    volumes:
+      - D:\Pessoal\Processo Seletivo\EnviaByBus:/home/node/app
+    working_dir: /home/node/app
+    command: "npm start"
+    depends_on: 
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports: 
+      - "8181:80"
+    networks:
+      - enviabybus_net
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: enviaByBus
+      PMA_PASSWORD: enviaByBuspwd
+    depends_on: 
+      - db
