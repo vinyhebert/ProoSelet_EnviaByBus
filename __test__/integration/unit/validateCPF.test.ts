@@ -1,4 +1,4 @@
-import { isValidCPF } from '../../../src/models/validateCPF';
+import { isValidCPF } from '../../../src/utils/validate';
 
 describe('isValidCPF', () => {
   it('deve retornar verdadeiro para um CPF válido', () => {

@@ -1,7 +1,8 @@
 import pool from "../database/connections";
 import { PoolConnection } from 'mysql2'
+import { LineData } from '../interfaces/index' 
 
-export const inserirDadosValidosNoMySQL = (data: any[]) => {
+export const inserirDadosValidosNoMySQL = (data: LineData[]) => {
     pool.getConnection((err, connection: PoolConnection) => {
       if (err) {
         console.error('Erro ao conectar ao MySQL:', err);

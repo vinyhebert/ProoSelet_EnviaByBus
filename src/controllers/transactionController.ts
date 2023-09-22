@@ -1,28 +1,12 @@
-import * as insertTrans from '../models/insertTrans'
-import * as insertTransErros from '../models/insertTransErrors'
-import * as validateCPF from '../models/validateCPF'
-import * as validateDate from '../models/validateDate'
-
 import { Request, Response } from 'express';
-import { Transacao } from '../interfaces/transaction'
+import { Transacao, LineData } from '../interfaces/index'
 import * as selectTrans from '../models/selectTrans';
 import * as selectTransError from '../models/selectTransError';
+import * as insertTrans from '../models/insertTrans'
+import * as insertTransErros from '../models/insertTransErrors'
 import * as storeBalance from '../models/storeBalance';
+import * as validate from '../utils/validate'
 
-
-//melhorar
-const validateDate1 = validateDate
-const validateCPF1 = validateCPF
-
-interface LineData {
-    Tipo: string;
-    Data: string;
-    Valor: number;
-    CPF: string;
-    Cartao: string;
-    'Dono da loja': string;
-    'Nome da loja': string;
-  }
   
   // Organizar os dados em objetos com base no esquema de campos
   export const organizeData = (lines: string[], getField: (line: string, start: number, end: number) => string): LineData[] => {
@@ -34,8 +18,8 @@ interface LineData {
       const rawCPF = getField(line, 20, 30);
       // Formatado para: 'YYYY-MM-DD'
       const formattedDate = `${rawDate.substring(0, 4)}-${rawDate.substring(4, 6)}-${rawDate.substring(6, 8)}`;
-      const validateDate = validateDate1.isValidDate(formattedDate);
-      const validateCPF = validateCPF1.isValidCPF(rawCPF);
+      const validateDate = validate.isValidDate(formattedDate);
+      const validateCPF = validate.isValidCPF(rawCPF);
   
       //Convert
       const valorString = getField(line, 10, 19);
@@ -48,7 +32,7 @@ interface LineData {
         CPF: getField(line, 20, 30),
         Cartao: getField(line, 31, 42),
         'Dono da loja': getField(line, 43, 56),
-        'Nome da loja': getField(line, 57, 74),
+        'Nome_da_loja': getField(line, 57, 74),
       };
   
       if (validateDate && validateCPF) {

@@ -1,4 +1,4 @@
-import { Transacao } from '../interfaces/transaction'; 
+import { Transacao } from '../interfaces'; 
 
 interface LojaTotal {
   nomeLoja: string;

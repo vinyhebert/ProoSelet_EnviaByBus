@@ -1,4 +1,4 @@
-import { isValidDate } from '../../../src/models/validateDate';
+import { isValidDate } from '../../../src/utils/validate';
 
 describe('isValidDate', () => {
   it('deve retornar verdadeiro para uma data válida no formato "YYYY-MM-DD"', () => {

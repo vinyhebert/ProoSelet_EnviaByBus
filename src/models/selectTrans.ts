@@ -1,5 +1,5 @@
 import poolSQL from '../database/connections';
-import { Transacao } from '../interfaces/transaction'; 
+import { Transacao } from '../interfaces'; 
 
 // Exporte uma função para consultar dados no MySQL
 export const consultarTransValidasNoMySQL = (): Promise<Transacao[]> => {
