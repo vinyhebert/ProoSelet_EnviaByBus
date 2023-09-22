@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import { compareSync } from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 
@@ -25,7 +25,7 @@ export const login = (req: any, res: any) => {
                 },
             });
         }
-        const validacaoPassword = bcrypt.compareSync(req.body.password,resUsuarioBDSimulator.password);
+        const validacaoPassword = compareSync(req.body.password,resUsuarioBDSimulator.password);
 
         if (!validacaoPassword) {
             return res.status(401).json({

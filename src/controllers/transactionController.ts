@@ -41,8 +41,6 @@ import * as validate from '../utils/validate'
         dataError.push(lineData);
       }
     });
-  
-    console.log('dataError', dataError);
 
     insertTrans.inserirDadosValidosNoMySQL(data);
     insertTransErros.inserirDadosInvalidosNoMySQL(dataError);

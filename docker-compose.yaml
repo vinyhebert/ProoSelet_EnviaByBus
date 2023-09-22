@@ -9,22 +9,22 @@ services:
     image: mysql
     networks:
       - enviabybus_net
-    
+    container_name: "enviabybus-db-1"
     command: --default-authentication-plugin=mysql_native_password
     restart: "always"
     ports:
       - "3306:3306"
     volumes:
-      - D:\Pessoal\Processo Seletivo\_EnviaByBus\dbcache:/var/lib/mysql
+      - D:\Pessoal\Processo Seletivo\test3\ProoSelet_EnviaByBus\dbcache:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpwd
       MYSQL_DATABASE: enviaByBus
       MYSQL_USER: enviaByBus
       MYSQL_PASSWORD: enviaByBuspwd
 
-    
+
   api:
-    image: "node"
+    image: "node:18"
     networks:
       - enviabybus_net
     container_name: "node"
@@ -32,7 +32,7 @@ services:
     ports:
       - "8080:3000"
     volumes:
-      - D:\Pessoal\Processo Seletivo\_EnviaByBus:/home/node/app
+      - D:\Pessoal\Processo Seletivo\test3\ProoSelet_EnviaByBus:/home/node/app
     working_dir: /home/node/app
     command: "npm start"
     depends_on: 

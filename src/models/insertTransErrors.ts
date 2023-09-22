@@ -1,19 +1,20 @@
 import poolSQL from '../database/connections';
+import { PoolConnection } from 'mysql2'
 import { LineData } from '../interfaces/index' 
 
 // Função para criar a tabela "transactionErrors" se não existir
-function createTransactionErrorsTable(connection, callback) {
+function createTransactionErrorsTable(connection: PoolConnection, callback: () => void) {
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS transactionErrors (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      Tipo VARCHAR(255),
-      Data DATE,
-      Valor DECIMAL(10, 2),
-      CPF VARCHAR(11),
-      Cartao VARCHAR(16),
-      Dono_da_loja VARCHAR(255),
-      Nome_da_loja VARCHAR(255)
-    )
+  CREATE TABLE IF NOT EXISTS transactionErrors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Tipo INT NOT NULL, 
+    Data VARCHAR(20),
+    Valor DECIMAL(10, 2),
+    CPF VARCHAR(11),
+    Cartao VARCHAR(16),
+    Dono_da_loja VARCHAR(255),
+    Nome_da_loja VARCHAR(255)
+  );
   `;
 
   connection.query(createTableQuery, (err) => {
@@ -45,10 +46,9 @@ export const inserirDadosInvalidosNoMySQL = (data: LineData[]) => {
         item.CPF,
         item.Cartao,
         item['Dono da loja'],
-        item['Nome da loja'],
+        item['Nome_da_loja'],
       ]);
 
-      console.log(sql, values);
       connection.query(sql, [values], (err, result) => {
         if (err) {
           console.error('Erro ao inserir dados no MySQL:', err);
@@ -56,7 +56,7 @@ export const inserirDadosInvalidosNoMySQL = (data: LineData[]) => {
           console.log('Transações que não deram certo, inseridas com sucesso.');
         }
 
-        connection.release(); // Liberar a conexão após a inserção
+        connection.release();
       });
     });
   });

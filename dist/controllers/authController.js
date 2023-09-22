@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verificarToken = exports.login = void 0;
-const bcrypt = require("bcrypt");
+const bcrypt_1 = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -24,7 +24,7 @@ const login = (req, res) => {
                 },
             });
         }
-        const validacaoPassword = bcrypt.compareSync(req.body.password, resUsuarioBDSimulator.password);
+        const validacaoPassword = (0, bcrypt_1.compareSync)(req.body.password, resUsuarioBDSimulator.password);
         if (!validacaoPassword) {
             return res.status(401).json({
                 statusCode: 401,

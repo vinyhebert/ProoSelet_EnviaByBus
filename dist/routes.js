@@ -23,7 +23,6 @@ router.post('/upload', authControllers.verificarToken, upload.single('file'), (r
     try {
         const fileBuffer = req.file.buffer.toString();
         const lines = fileBuffer.split('\n');
-        //melhorar isso - colocar na camada Controller
         const getField = getFieldUpload.getField;
         const data = transactionController.organizeData(lines, getField);
         res.json({ res: data });
