@@ -24,7 +24,7 @@ services:
 
     
   api:
-    image: "node:18"
+    image: "node"
     networks:
       - enviabybus_net
     container_name: "node"
