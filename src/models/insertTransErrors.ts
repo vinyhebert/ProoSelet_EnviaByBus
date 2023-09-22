@@ -1,6 +1,7 @@
 import poolSQL from '../database/connections';
+import { LineData } from '../interfaces/index' 
 
-export const inserirDadosInvalidosNoMySQL = (data) => {
+export const inserirDadosInvalidosNoMySQL = (data: LineData[]) => {
   poolSQL.getConnection((err, connection) => {
     if (err) {
       console.error('Erro ao conectar ao MySQL:', err);
@@ -24,7 +25,7 @@ export const inserirDadosInvalidosNoMySQL = (data) => {
     
     connection.query(sql, [values], (err, result) => {
       if (err) {
-        console.error('Erro ao inserir dados no MySQL:', err);
+        console.error('Erro ao inserir dados no Banco de dados:', err);
       } else {
         console.log('Transações que não deram certo, inseridas com sucesso.');
       }

@@ -1,10 +1,5 @@
-import { Transacao } from '../interfaces'; 
+import { Transacao, LojaTotal } from '../interfaces';
 
-interface LojaTotal {
-  nomeLoja: string;
-  transacoes: Transacao[];
-  SaldoEmConta: number;
-}
 
 export const totalizarValoresPorLoja = (transacoes: Transacao[]): LojaTotal[] => {
   // Crie um objeto para rastrear as totalizações por loja

@@ -30,7 +30,7 @@ export const inserirDadosValidosNoMySQL = (data: LineData[]) => {
           console.log('Transações válidas inseridas com sucesso.');
         }
   
-        connection.release(); // Liberar a conexão de volta ao pool
+        connection.release();
       });
     });
   };

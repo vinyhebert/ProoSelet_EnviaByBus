@@ -2,7 +2,7 @@ import { isValidCPF } from '../../../src/utils/validate';
 
 describe('isValidCPF', () => {
   it('deve retornar verdadeiro para um CPF válido', () => {
-    const cpf = '123.456.789-09'; // Um CPF válido
+    const cpf = '123.456.789-09'; 
 
     const result = isValidCPF(cpf);
 
@@ -10,7 +10,7 @@ describe('isValidCPF', () => {
   });
 
   it('deve retornar falso para um CPF com todos os dígitos iguais', () => {
-    const cpf = '111.111.111-11'; // CPF com todos os dígitos iguais
+    const cpf = '111.111.111-11'; 
 
     const result = isValidCPF(cpf);
 
@@ -18,7 +18,7 @@ describe('isValidCPF', () => {
   });
 
   it('deve retornar falso para um CPF com formato inválido', () => {
-    const cpf = '123456789'; // CPF com formato inválido
+    const cpf = '123456789'; 
 
     const result = isValidCPF(cpf);
 
